@@ -34,3 +34,6 @@ node_modules
 
 # homebridge-people specifics
 seen.db.json
+
+# Yarn
+yarn.lock

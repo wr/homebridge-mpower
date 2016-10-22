@@ -1,6 +1,7 @@
 {
   "name": "homebridge-mpower",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "license": "MIT",
   "description": "Homebridge plugin that provides on/off switching for Ubiquiti mPower outlets",
   "keywords": [
     "homebridge-plugin"
@@ -14,6 +15,5 @@
     "homebridge": ">=0.2.0"
   },
   "dependencies": {
-    "child_process": ""
   }
 }
