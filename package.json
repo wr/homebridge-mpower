@@ -1,0 +1,19 @@
+{
+  "name": "homebridge-mpower",
+  "version": "0.0.1",
+  "description": "Homebridge plugin that provides on/off switching for Ubiquiti mPower outlets",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wr/homebridge-mpower.git"
+  },
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "dependencies": {
+    "child_process": "",
+  }
+}
