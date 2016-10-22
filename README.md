@@ -41,11 +41,14 @@ This is a plugin for [homebridge](https://github.com/nfarina/homebridge). It all
 ]
 ```
 
-- `name` is the human-readable name of the device plugged into your outlet
-- `username` is your mFi Controller username
-- `password` is your mFi Controller password
-- `url` may be either a hostname or an IP address
-- `id` is the specific outlet you hope to control. For mPower mini, this can only be `1`. For mPower and mPower PRO, you might have to do some trial and error to figure out which outlet has which `id`. I only have an mPower mini, so I can't check :)
+| Parameter | Description |
+|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `name` | The human-readable name of the device plugged into your outlet |
+| `username` | Your mFi Controller username |
+| `password` | Your mFi Controller password |
+| `url` | May be either a hostname or an IP address |
+| `id` | The specific outlet you hope to control. For mPower mini, this can only be `1`. For mPower and mPower PRO, you might have to do some trial and error to figure out which outlet has which `id`. I only have an mPower mini, so I can't check :) |
+
 
 # How it works
 This plugin is basically a homebridge-compatible implementation of the [Ubiquiti mFi outlet HTTP API](https://community.ubnt.com/t5/mFi/mPower-mFi-Switch-and-mFi-In-Wall-Outlet-HTTP-API/td-p/1076449). It sends a HTTP request via `curl` to your mFi outlet device (not the controller) to manually toggle the device `on` or `off`.
