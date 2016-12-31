@@ -43,7 +43,7 @@ mPowerPlatform.prototype = {
 function mPowerAccessory(log, airos_sessionid, outlet) {
   this.log = log;
   this.airos_sessionid = airos_sessionid;
-  this.name = outlet["name"],
+  this.name = outlet["name"];
   this.username = outlet["username"];
   this.password = outlet["password"];
   this.url = outlet["url"];
@@ -58,10 +58,10 @@ function mPowerAccessory(log, airos_sessionid, outlet) {
     .on('get', this.getState.bind(this))
     .on('set', this.setState.bind(this));
 
-   this.outletService
+  /*Power consumption in Watt*/
+  this.outletService
     .getCharacteristic(Characteristic.OutletInUse)
-    .on('get', this.getState.bind(this))
-    .setValue(this.state === 'on');
+    .on('get', this.getOutletInUse.bind(this));
 
   this.services.push(this.outletService);
 }
@@ -117,6 +117,39 @@ mPowerAccessory.prototype.getState = function(callback) {
               callback(null, false);
             }
             else {
+              callback(error);
+            }
+          } else {
+            console.log("Failed to communicate with mPower accessory");
+          }
+        } else {
+          console.log("Failed with error: " + error);
+        }
+      });
+    } else {
+      console.log("Failed with error: " + error);
+    }
+  });
+}
+
+mPowerAccessory.prototype.getOutletInUse = function(callback) {
+  var exec = require('child_process').exec;
+
+  var cmdAuth = 'curl -X POST -d "username=' + this.username + '&password=' + this.password + '" -b "AIROS_SESSIONID=' + this.airos_sessionid + '" ' + this.url + '/login.cgi';
+  var cmdStatus = 'curl -b "AIROS_SESSIONID=' + this.airos_sessionid + '" ' + this.url + '/sensors/' + this.id + '/power';
+
+  exec(cmdAuth, function(error, stdout, stderr) {
+    if (!error) {
+      exec(cmdStatus, function(error, stdout, stderr) {
+        if (!error) {
+          if (stdout != "") {
+            var state = JSON.parse(stdout);
+            if(state.sensors[0].power > 0) {
+              callback(null, true);
+            } else if(state.sensors[0].power == 0) {
+              callback(null, false);
+            }
+			else {
               callback(error);
             }
           } else {
