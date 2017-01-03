@@ -150,7 +150,7 @@ mPowerAccessory.prototype.getOutletInUse = function(callback) {
             } else if(state.sensors[0].power == 0) {
               callback(null, false);
             }
-			else {
+	    else {
               callback(error);
             }
           } else {
