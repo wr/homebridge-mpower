@@ -68,7 +68,8 @@ function mPowerAccessory(log, airos_sessionid, outlet) {
 
 mPowerAccessory.prototype.setState = function(state, callback) {
   var exec = require('child_process').exec;
-
+  state = (state == true || state == 1) ? 1 : 0;
+  
   var cmdAuth = 'curl -X POST -d "username=' + this.username + '&password=' + this.password + '" -b "AIROS_SESSIONID=' + this.airos_sessionid + '" ' + this.url + '/login.cgi';
   var cmdUpdate = 'curl -X POST -d "output=' + state+ '" -b "AIROS_SESSIONID=' + this.airos_sessionid + '" ' + this.url + '/sensors/' + this.id;
 
@@ -136,11 +137,11 @@ mPowerAccessory.prototype.getOutletInUse = function(callback) {
   var exec = require('child_process').exec;
 
   var cmdAuth = 'curl -X POST -d "username=' + this.username + '&password=' + this.password + '" -b "AIROS_SESSIONID=' + this.airos_sessionid + '" ' + this.url + '/login.cgi';
-  var cmdStatus = 'curl -b "AIROS_SESSIONID=' + this.airos_sessionid + '" ' + this.url + '/sensors/' + this.id + '/power';
+  var cmdOutletInUseStatus = 'curl -b "AIROS_SESSIONID=' + this.airos_sessionid + '" ' + this.url + '/sensors/' + this.id + '/power';
 
   exec(cmdAuth, function(error, stdout, stderr) {
     if (!error) {
-      exec(cmdStatus, function(error, stdout, stderr) {
+      exec(cmdOutletInUseStatus, function(error, stdout, stderr) {
         if (!error) {
           if (stdout != "") {
             var state = JSON.parse(stdout);
@@ -149,7 +150,7 @@ mPowerAccessory.prototype.getOutletInUse = function(callback) {
             } else if(state.sensors[0].power == 0) {
               callback(null, false);
             }
-			else {
+	    else {
               callback(error);
             }
           } else {
