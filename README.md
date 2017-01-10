@@ -52,3 +52,6 @@ This is a plugin for [homebridge](https://github.com/nfarina/homebridge). It all
 
 # How it works
 This plugin is basically a homebridge-compatible implementation of the [Ubiquiti mFi outlet HTTP API](https://community.ubnt.com/t5/mFi/mPower-mFi-Switch-and-mFi-In-Wall-Outlet-HTTP-API/td-p/1076449). It sends a HTTP request via `curl` to your mFi outlet device (not the controller) to manually toggle the device `on` or `off`.
+
+# Acknowledgements
+Major thanks to the other contributors who have improved this plugin: [pponce](https://github.com/pponce)
